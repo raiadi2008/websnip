@@ -12,6 +12,13 @@ chrome.devtools.panels.create(
   "icon.png",
   "devtools.html",
   (panel: chrome.devtools.panels.ExtensionPanel) => {
+    const tabID = chrome.devtools.inspectedWindow.tabId
     const port = chrome.runtime.connect({ name: "devtoolPort" })
+    panel.onShown.addListener(() => {
+      port.postMessage(`opened devtools on tab ${tabID}`)
+    })
+    panel.onHidden.addListener(() => {
+      port.postMessage(`closed devtools on tab ${tabID}`)
+    })
   }
 )
