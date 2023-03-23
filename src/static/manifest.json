@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "websnip by hyprnest",
+    "version": "1.0.0",
+    "description": "copy html and css of any component on any webpage",
+    "host_permissions": ["https://*/*", "http://*/*"],
+    "devtools_page": "devtools.html",
+    "background": {
+        "service_worker": "background.js"
+    }
+}
