@@ -1,3 +1,3 @@
-chrome.runtime.onMessage.addListener((message) => {
-  console.log(message)
+chrome.runtime.onConnect.addListener((port) => {
+  console.log("port connected")
 })

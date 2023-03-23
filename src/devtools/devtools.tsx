@@ -12,8 +12,6 @@ chrome.devtools.panels.create(
   "icon.png",
   "devtools.html",
   (panel: chrome.devtools.panels.ExtensionPanel) => {
-    chrome.runtime.sendMessage(
-      `script running on ${chrome.devtools.inspectedWindow.tabId}`
-    )
+    const port = chrome.runtime.connect({ name: "devtoolPort" })
   }
 )
