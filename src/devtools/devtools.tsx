@@ -1,5 +1,6 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
+import { DEVTOOL_RUNTIME_CONNECTION_PORT } from "../utils/constants"
 console.log("devtools running")
 
 const domNode = document.createElement("div")
@@ -13,7 +14,9 @@ chrome.devtools.panels.create(
   "devtools.html",
   (panel: chrome.devtools.panels.ExtensionPanel) => {
     const tabID = chrome.devtools.inspectedWindow.tabId
-    const port = chrome.runtime.connect({ name: "devtoolPort" })
+    const port = chrome.runtime.connect({
+      name: DEVTOOL_RUNTIME_CONNECTION_PORT,
+    })
     panel.onShown.addListener(() => {
       port.postMessage(`opened devtools on tab ${tabID}`)
     })
