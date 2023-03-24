@@ -8,7 +8,8 @@ module.exports = {
     devtool: "cheap-module-source-map",
     entry: {
         devtools: path.resolve(__dirname, 'src/devtools/devtools.tsx'),
-        background: path.resolve(__dirname, 'src/background/background.ts')
+        background: path.resolve(__dirname, 'src/background/background.ts'),
+        content_script: path.resolve(__dirname, 'src/content_scripts/content_script.ts')
     },
     module: {
         rules: [
