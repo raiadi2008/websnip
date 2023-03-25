@@ -8,7 +8,6 @@ const onMouseOver = (mouseEvent: MouseEvent) => {
   contentScriptPort.postMessage(mouseEvent.target)
 }
 const init = () => {
-  console.log("init function called")
   document.addEventListener("mouseover", onMouseOver)
 }
 init()
