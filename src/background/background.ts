@@ -5,29 +5,30 @@ import {
   DEVTOOL_RUNTIME_CONNECTION_PORT,
 } from "../utils/constants"
 
-let devtoolPort: chrome.runtime.Port
-let contentScriptPort: chrome.runtime.Port
+const handleDevtoolPort = (port: chrome.runtime.Port) => {
+  port.onMessage.addListener((message: OverlayActivatorInterface) => {
+    console.log(message)
+  })
+  port.onDisconnect.addListener((port) => {
+    port.disconnect()
+  })
+}
 
-chrome.runtime.onConnect.addListener((port) => {
+const handleContentScriptPort = (port: chrome.runtime.Port) => {
+  port.onMessage.addListener((message: HtmlCssInfoInterface) => {
+    console.log(message)
+  })
+  port.onDisconnect.addListener((port) => {
+    port.disconnect()
+  })
+}
+
+const handlePort = (port: chrome.runtime.Port) => {
   if (port.name == DEVTOOL_RUNTIME_CONNECTION_PORT) {
-    devtoolPort = port
-    port.onMessage.addListener((message: OverlayActivatorInterface) => {
-      if (contentScriptPort) {
-        contentScriptPort.postMessage(message)
-      }
-    })
-    port.onDisconnect.addListener((port) => {
-      port.disconnect()
-    })
+    handleDevtoolPort(port)
   } else if (port.name == CONTENT_SCRIPT_RUNTIME_CONNECTION_PORT) {
-    contentScriptPort = port
-    port.onMessage.addListener((message: HtmlCssInfoInterface) => {
-      if (devtoolPort) {
-        devtoolPort.postMessage(message)
-      }
-    })
-    port.onDisconnect.addListener((port) => {
-      port.disconnect()
-    })
+    handleContentScriptPort(port)
   }
-})
+}
+
+chrome.runtime.onConnect.addListener(handlePort)

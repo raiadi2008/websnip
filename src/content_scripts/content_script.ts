@@ -8,7 +8,7 @@ import { CONTENT_SCRIPT_RUNTIME_CONNECTION_PORT } from "../utils/constants"
 
 // set the overlay enable false for the
 // current window unless stated by devtools
-window.__IS_OVERLAY_ENABLED__ = false
+window.__IS_OVERLAY_ENABLED__ = true
 
 // overlay element to display
 let overlay: HTMLElement = null
@@ -19,6 +19,7 @@ const contentScriptPort = chrome.runtime.connect({
 
 contentScriptPort.onMessage.addListener(
   (message: OverlayActivatorInterface) => {
+    console.log("message was revicd")
     window.__IS_OVERLAY_ENABLED__ = message.activate_overlay
   }
 )
@@ -72,25 +73,14 @@ function onClick(event) {
   cssRules.push(
     `/* Computed width and height */\n${selector} { width: ${width}; height: ${height}; }`
   )
-
-  if (contentScriptPort && contentScriptPort.sender) {
+  console.log("content script port = ", contentScriptPort)
+  if (contentScriptPort) {
+    console.log("sending content script to port")
     contentScriptPort.postMessage({
       html: outerHTML,
       css: cssRules.join(" "),
     } as HtmlCssInfoInterface)
   }
-
-  // // Send the HTML and CSS to the background script
-  // // const port = chrome.runtime.connect({ name: 'elementSelected' });
-  // // port.postMessage({
-  // //     action: 'elementSelected',
-  // //     element: target.tagName.toLowerCase(),
-  // //     html: outerHTML,
-  // //     css: cssRules.join('\n'),
-  // // });
-
-  // console.log(outerHTML)
-  // console.log(cssRules)
 }
 
 const init = () => {

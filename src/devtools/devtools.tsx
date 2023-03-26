@@ -3,12 +3,12 @@ import { createRoot } from "react-dom/client"
 import { DEVTOOL_RUNTIME_CONNECTION_PORT } from "../utils/constants"
 import DevtoolsPanel from "./devtools_panel"
 import { HtmlCssInfo } from "../types/props"
-import { OverlayActivatorInterface } from "../types/types"
+import { HtmlCssInfoInterface, OverlayActivatorInterface } from "../types/types"
 
 const domNode = document.createElement("div")
-domNode.textContent = "devtools"
 const root = createRoot(domNode)
 root.render(<DevtoolsPanel />)
+document.body.appendChild(domNode)
 
 chrome.devtools.panels.create(
   "Websnip",
@@ -20,7 +20,7 @@ chrome.devtools.panels.create(
       name: DEVTOOL_RUNTIME_CONNECTION_PORT,
     })
     port.onMessage.addListener(
-      (message: HtmlCssInfo, port: chrome.runtime.Port) => {
+      (message: HtmlCssInfoInterface, port: chrome.runtime.Port) => {
         root.render(<DevtoolsPanel html={message.html} css={message.css} />)
       }
     )
