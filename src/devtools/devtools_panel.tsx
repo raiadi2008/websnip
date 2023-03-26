@@ -4,17 +4,29 @@ import AceEditor from "react-ace"
 import prettier from "prettier/standalone"
 import parserHtml from "prettier/parser-html"
 import parserCss from "prettier/parser-postcss"
+import "ace-builds/src-noconflict/theme-monokai"
 
 import "./styles/devtools_panel.css"
 
 const DevtoolsPanel: React.FC<HtmlCssInfo> = ({ html, css }) => {
-  let parsedHTML = prettier.format(html || "Your HTML goes here ...", {
+  let parsedHTML = html || "Your HTML goes here ..."
+  let parsedCSS = css || "Your CSS goes here ..."
+
+  // Check if the CSS contains valid rules
+  const isValidCSS = (css: string) => {
+    return css.trim() !== "Your CSS goes here ..."
+  }
+
+  if (isValidCSS(parsedCSS)) {
+    parsedCSS = prettier.format(css || "Your CSS goes here ...", {
+      parser: "css",
+      plugins: [parserCss],
+    })
+  }
+
+  parsedHTML = prettier.format(html || "Your HTML goes here ...", {
     parser: "html",
     plugins: [parserHtml],
-  })
-  let parsedCSS = prettier.format(css || "Your CSS goes here ...", {
-    parser: "css",
-    plugins: [parserCss],
   })
 
   const copyToClipboard = (text: string) => {
@@ -35,7 +47,7 @@ const DevtoolsPanel: React.FC<HtmlCssInfo> = ({ html, css }) => {
           value={parsedHTML}
           readOnly={true}
           width='100%'
-          height='200px'
+          height='80%'
         />
         <button
           className='copy-button'
@@ -53,7 +65,7 @@ const DevtoolsPanel: React.FC<HtmlCssInfo> = ({ html, css }) => {
           value={parsedCSS}
           readOnly={true}
           width='100%'
-          height='200px'
+          height='80%'
         />
         <button
           className='copy-button'
