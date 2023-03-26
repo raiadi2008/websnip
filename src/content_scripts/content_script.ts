@@ -25,9 +25,14 @@ const contentScriptPort = chrome.runtime.connect({
 
 contentScriptPort.onMessage.addListener(
   (message: OverlayActivatorInterface | RespondTabIdInfoInterface) => {
-    if (isOverlayActivatorMessage(message))
+    if (isOverlayActivatorMessage(message)) {
       window.__IS_OVERLAY_ENABLED__ = message.activate_overlay
-    else if (message.message_type === MessageTypes.RESPOND_TAB_ID_MESSAGE)
+      if (!message.activate_overlay) {
+        if (overlay && overlay.parentNode) {
+          overlay.parentNode.removeChild(overlay)
+        }
+      }
+    } else if (message.message_type === MessageTypes.RESPOND_TAB_ID_MESSAGE)
       window.__CURRENT_WINDOW_TAB_ID__ = message.tabId
   }
 )

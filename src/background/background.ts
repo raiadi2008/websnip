@@ -13,16 +13,23 @@ import { MessageTypes } from "../types/enums"
 const devtoolPorts = new Map<number, chrome.runtime.Port>()
 const contentScriptPorts = new Map<number, chrome.runtime.Port>()
 
-const removeDisconnectedPort = (
+const getPortTabId = (
   port: chrome.runtime.Port,
   portMap: Map<number, chrome.runtime.Port>
 ) => {
   for (const [tabId, storedPort] of portMap.entries()) {
     if (storedPort === port) {
-      portMap.delete(tabId)
-      break
+      return tabId
     }
   }
+}
+
+const removeDisconnectedPort = (
+  port: chrome.runtime.Port,
+  portMap: Map<number, chrome.runtime.Port>
+) => {
+  let tabId = getPortTabId(port, portMap)
+  portMap.delete(tabId)
 }
 
 const devtoolPortMessageListner = (
@@ -49,6 +56,15 @@ const contentScriptPortMessageListner = (
 const handleDevtoolPort = (port: chrome.runtime.Port) => {
   port.onMessage.addListener(devtoolPortMessageListner)
   port.onDisconnect.addListener((port) => {
+    const portTabId = getPortTabId(port, devtoolPorts)
+    const contentScriptPort = portTabId
+      ? contentScriptPorts.get(portTabId)
+      : null
+    if (contentScriptPort)
+      contentScriptPort.postMessage({
+        message_type: MessageTypes.OVERLAY_ACTIVATOR_MESSAGE,
+        activate_overlay: false,
+      } as OverlayActivatorInterface)
     port.disconnect()
     removeDisconnectedPort(port, devtoolPorts)
   })
