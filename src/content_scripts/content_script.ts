@@ -3,12 +3,18 @@ import {
   getAncestorHtml,
   getAncestorSelector,
 } from "../html_parser/html_parser"
-import { HtmlCssInfoInterface, OverlayActivatorInterface } from "../types/types"
-import { CONTENT_SCRIPT_RUNTIME_CONNECTION_PORT } from "../utils/constants"
+import {
+  HtmlCssInfoInterface,
+  OverlayActivatorInterface,
+  RespondTabIdInfoInterface,
+} from "../types/types"
+import { CONTENT_SCRIPT_RUNTIME_CONNECTION_PORT } from "../constants/constants"
+import { MessageTypes } from "../types/enums"
+import { isOverlayActivatorMessage } from "../types/type_gaurds"
 
 // set the overlay enable false for the
 // current window unless stated by devtools
-window.__IS_OVERLAY_ENABLED__ = true
+window.__IS_OVERLAY_ENABLED__ = false
 
 // overlay element to display
 let overlay: HTMLElement = null
@@ -18,9 +24,11 @@ const contentScriptPort = chrome.runtime.connect({
 })
 
 contentScriptPort.onMessage.addListener(
-  (message: OverlayActivatorInterface) => {
-    console.log("message was revicd")
-    window.__IS_OVERLAY_ENABLED__ = message.activate_overlay
+  (message: OverlayActivatorInterface | RespondTabIdInfoInterface) => {
+    if (isOverlayActivatorMessage(message))
+      window.__IS_OVERLAY_ENABLED__ = message.activate_overlay
+    else if (message.message_type === MessageTypes.RESPOND_TAB_ID_MESSAGE)
+      window.__CURRENT_WINDOW_TAB_ID__ = message.tabId
   }
 )
 
@@ -73,12 +81,12 @@ function onClick(event) {
   cssRules.push(
     `/* Computed width and height */\n${selector} { width: ${width}; height: ${height}; }`
   )
-  console.log("content script port = ", contentScriptPort)
   if (contentScriptPort) {
-    console.log("sending content script to port")
     contentScriptPort.postMessage({
+      message_type: MessageTypes.HTML_CSS_INFO_MESSAGE,
       html: outerHTML,
       css: cssRules.join(" "),
+      tabId: window.__CURRENT_WINDOW_TAB_ID__,
     } as HtmlCssInfoInterface)
   }
 }
