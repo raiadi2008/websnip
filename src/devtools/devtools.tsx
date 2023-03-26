@@ -1,11 +1,14 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
 import { DEVTOOL_RUNTIME_CONNECTION_PORT } from "../utils/constants"
+import DevtoolsPanel from "./devtools_panel"
+import { HtmlCssInfo } from "../types/props"
+import { OverlayActivatorInterface } from "../types/types"
 
 const domNode = document.createElement("div")
 domNode.textContent = "devtools"
 const root = createRoot(domNode)
-root.render(<h1>Hello</h1>)
+root.render(<DevtoolsPanel />)
 
 chrome.devtools.panels.create(
   "Websnip",
@@ -16,11 +19,16 @@ chrome.devtools.panels.create(
     const port = chrome.runtime.connect({
       name: DEVTOOL_RUNTIME_CONNECTION_PORT,
     })
+    port.onMessage.addListener(
+      (message: HtmlCssInfo, port: chrome.runtime.Port) => {
+        root.render(<DevtoolsPanel html={message.html} css={message.css} />)
+      }
+    )
     panel.onShown.addListener(() => {
-      port.postMessage(`opened devtools on tab ${tabID}`)
+      port.postMessage({ activate_overlay: true } as OverlayActivatorInterface)
     })
     panel.onHidden.addListener(() => {
-      port.postMessage(`closed devtools on tab ${tabID}`)
+      port.postMessage({ activate_overlay: false } as OverlayActivatorInterface)
     })
   }
 )
