@@ -100,6 +100,6 @@ const init = () => {
   overlay = createOverlay()
   document.addEventListener("mouseover", onMouseOver)
   document.addEventListener("mouseout", onMouseOut)
-  document.addEventListener("click", onClick)
+  document.addEventListener("click", onClick, { capture: true })
 }
 init()
