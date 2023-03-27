@@ -1,3 +1,5 @@
+import { VOID_ELEMENTS } from "../constants/constants"
+
 export function getAncestorSelector(element: HTMLElement | null): string {
   const segments: string[] = []
   while (element && element.nodeType === Node.ELEMENT_NODE) {
@@ -18,39 +20,35 @@ export function getAncestorHtml(target: HTMLElement): string {
   const stack: HTMLElement[] = []
   let currentElement: HTMLElement | null = target
 
-  // Push the target and its ancestors to the stack
   while (currentElement) {
     stack.push(currentElement)
     currentElement = currentElement.parentElement
   }
 
-  // Initialize the result variable and the closingTags stack
   let result = ""
   const closingTags: string[] = []
 
-  // Process each element in the stack
   while (stack.length > 0) {
     const element = stack.pop()!
     const tagName = element.tagName.toLowerCase()
+    const isVoidElement = VOID_ELEMENTS.includes(tagName)
 
-    // Append the opening tag to the result
     let openingTag = `<${tagName}`
     for (const attr of element.attributes) {
       openingTag += ` ${attr.name}="${attr.value}"`
     }
-    openingTag += ">"
+    openingTag += isVoidElement ? "/>" : ">"
     result += openingTag
 
-    // If it's the target element, include its content
-    if (element === target) {
+    if (element === target && !isVoidElement) {
       result += element.innerHTML
     }
 
-    // Push the closing tag to the closingTags stack
-    closingTags.push(`</${tagName}>`)
+    if (!isVoidElement) {
+      closingTags.push(`</${tagName}>`)
+    }
   }
 
-  // Append the closing tags to the result
   while (closingTags.length > 0) {
     result += closingTags.pop()!
   }

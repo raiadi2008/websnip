@@ -69,11 +69,11 @@ const onMouseOut = (mouseEvent: MouseEvent) => {
   }
 }
 
-function onClick(event) {
+function onClick(event: MouseEvent) {
   if (!window.__IS_OVERLAY_ENABLED__) return
   event.preventDefault()
   event.stopPropagation()
-  const target = event.target
+  const target = event.target as HTMLElement
   const outerHTML = getAncestorHtml(target)
 
   const cssRules = collectCssRules(target)
@@ -100,6 +100,6 @@ const init = () => {
   overlay = createOverlay()
   document.addEventListener("mouseover", onMouseOver)
   document.addEventListener("mouseout", onMouseOut)
-  document.addEventListener("click", onClick)
+  document.addEventListener("click", onClick, { capture: true })
 }
 init()
