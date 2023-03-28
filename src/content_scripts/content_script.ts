@@ -1,8 +1,5 @@
 import { collectCssRules } from "../css_parser/css_parser"
-import {
-  getAncestorHtml,
-  getAncestorSelector,
-} from "../html_parser/html_parser"
+import { getAncestorHtml } from "../html_parser/html_parser"
 import {
   HtmlCssInfoInterface,
   OverlayActivatorInterface,
@@ -82,10 +79,7 @@ function onClick(event: MouseEvent) {
   const computedStyle = window.getComputedStyle(target)
   const width = computedStyle.width
   const height = computedStyle.height
-  const selector = getAncestorSelector(target)
-  cssRules.push(
-    `/* Computed width and height */\n${selector} { width: ${width}; height: ${height}; }`
-  )
+
   if (contentScriptPort) {
     contentScriptPort.postMessage({
       message_type: MessageTypes.HTML_CSS_INFO_MESSAGE,
