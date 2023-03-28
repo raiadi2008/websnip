@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { pseudoClassRegex } from "../constants/constants"
 export function getAncestorSelector(element: HTMLElement | null): string {
 =======
@@ -57,6 +58,8 @@ const getCssTextWithoutSelectors = (cssText: string) => {
 >>>>>>> 08f6d3e (added css parser)
 =======
 >>>>>>> 82cc6f7 (changes)
+=======
+>>>>>>> 9ea5d69 (added css parser)
 const getAncestorSelector = (element: HTMLElement | null): string => {
   const segments: string[] = []
   while (element && element.nodeType === Node.ELEMENT_NODE) {
@@ -78,6 +81,8 @@ const getAncestorSelector = (element: HTMLElement | null): string => {
 =======
 =======
 >>>>>>> f4bd09a (changes)
+=======
+>>>>>>> 05e6b40 (added css parser)
 import { pseudoClassRegex } from "../constants/constants"
 export function getAncestorSelector(element: HTMLElement | null): string {
 =======
@@ -99,6 +104,10 @@ const getAncestorSelector = (element: HTMLElement | null): string => {
 }
 
 <<<<<<< HEAD
+=======
+import { pseudoClassRegex } from "../constants/constants"
+
+>>>>>>> a303748 (added css parser)
 const getCssTextWithoutSelectors = (cssText: string) => {
   const openingBraceIndex = cssText.indexOf("{")
   const closingBraceIndex = cssText.lastIndexOf("}")
@@ -151,6 +160,7 @@ const isPseudoClass = (element: HTMLElement, selectorText: string): string => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 49f9071 (changes)
 =======
@@ -161,12 +171,23 @@ const isPseudoClass = (element: HTMLElement, selectorText: string): string => {
 >>>>>>> 3becc24 (added css parser)
 >>>>>>> 08f6d3e (added css parser)
 =======
+=======
+>>>>>>> 9ea5d69 (added css parser)
 >>>>>>> 3becc24 (added css parser)
 =======
 =======
 >>>>>>> 49f9071 (changes)
 >>>>>>> f4bd09a (changes)
+<<<<<<< HEAD
 >>>>>>> 82cc6f7 (changes)
+=======
+=======
+=======
+>>>>>>> 49f9071 (changes)
+=======
+>>>>>>> a303748 (added css parser)
+>>>>>>> 05e6b40 (added css parser)
+>>>>>>> 9ea5d69 (added css parser)
 export const collectCssRules = (
   element: HTMLElement,
   classMap: Map<string, string>,
