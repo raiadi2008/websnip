@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { pseudoClassRegex } from "../constants/constants"
 export function getAncestorSelector(element: HTMLElement | null): string {
+=======
+const getAncestorSelector = (element: HTMLElement | null): string => {
+>>>>>>> 49f9071 (changes)
   const segments: string[] = []
   while (element && element.nodeType === Node.ELEMENT_NODE) {
     let segment = element.tagName.toLowerCase()
@@ -15,6 +19,7 @@ export function getAncestorSelector(element: HTMLElement | null): string {
   return segments.join(" > ")
 }
 
+<<<<<<< HEAD
 const getCssTextWithoutSelectors = (cssText: string) => {
   const openingBraceIndex = cssText.indexOf("{")
   const closingBraceIndex = cssText.lastIndexOf("}")
@@ -63,6 +68,8 @@ const isPseudoClass = (element: HTMLElement, selectorText: string): string => {
   return null
 }
 
+=======
+>>>>>>> 49f9071 (changes)
 export const collectCssRules = (
   element: HTMLElement,
   classMap: Map<string, string>,

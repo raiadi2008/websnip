@@ -1,6 +1,7 @@
 import { VOID_ELEMENTS } from "../constants/constants"
 import { HtmlClassInfoInterface } from "../types/types"
 
+<<<<<<< HEAD
 const classMap = new Map<string, string>()
 
 let classNumber = 0
@@ -21,6 +22,9 @@ export const getAncestorHtml = (target: HTMLElement): Map<string, string> => {
   addNewClassNamesToHtml(target)
   return classMap
 export function getAncestorHtml(target: HTMLElement): string {
+=======
+export const getAncestorHtml = (target: HTMLElement): string => {
+>>>>>>> 49f9071 (changes)
   const stack: HTMLElement[] = []
   let currentElement: HTMLElement | null = target
 
