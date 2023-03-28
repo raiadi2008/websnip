@@ -1,10 +1,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { pseudoClassRegex } from "../constants/constants"
 export function getAncestorSelector(element: HTMLElement | null): string {
 =======
 const getAncestorSelector = (element: HTMLElement | null): string => {
 >>>>>>> 49f9071 (changes)
+=======
+export function getAncestorSelector(element: HTMLElement | null): string {
+>>>>>>> c3f43f8 (arrow function changes)
   const segments: string[] = []
   while (element && element.nodeType === Node.ELEMENT_NODE) {
     let segment = element.tagName.toLowerCase()
