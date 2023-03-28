@@ -1,4 +1,19 @@
 import { pseudoClassRegex } from "../constants/constants"
+export function getAncestorSelector(element: HTMLElement | null): string {
+  const segments: string[] = []
+  while (element && element.nodeType === Node.ELEMENT_NODE) {
+    let segment = element.tagName.toLowerCase()
+    if (element.id) {
+      segment += "#" + element.id
+    }
+    if (element.className) {
+      segment += "." + element.className.trim().replace(/\s+/g, ".")
+    }
+    segments.unshift(segment)
+    element = element.parentElement
+  }
+  return segments.join(" > ")
+}
 
 const getCssTextWithoutSelectors = (cssText: string) => {
   const openingBraceIndex = cssText.indexOf("{")
