@@ -1,6 +1,6 @@
 import { VOID_ELEMENTS } from "../constants/constants"
 
-export function getAncestorHtml(target: HTMLElement): string {
+export const getAncestorHtml = (target: HTMLElement): string => {
   const stack: HTMLElement[] = []
   let currentElement: HTMLElement | null = target
 

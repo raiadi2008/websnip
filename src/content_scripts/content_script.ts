@@ -34,7 +34,7 @@ contentScriptPort.onMessage.addListener(
   }
 )
 
-function createOverlay() {
+const createOverlay = (): HTMLElement => {
   const div = document.createElement("div")
   div.style.position = "fixed"
   div.style.pointerEvents = "none"
@@ -44,7 +44,7 @@ function createOverlay() {
   return div
 }
 
-function updateOverlayPosition(bounds) {
+const updateOverlayPosition = (bounds: DOMRect) => {
   overlay.style.top = `${bounds.top}px`
   overlay.style.left = `${bounds.left}px`
   overlay.style.width = `${bounds.width}px`
@@ -66,7 +66,7 @@ const onMouseOut = (mouseEvent: MouseEvent) => {
   }
 }
 
-function onClick(event: MouseEvent) {
+const onClick = (event: MouseEvent) => {
   if (!window.__IS_OVERLAY_ENABLED__) return
   event.preventDefault()
   event.stopPropagation()

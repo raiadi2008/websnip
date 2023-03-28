@@ -1,4 +1,4 @@
-export function getAncestorSelector(element: HTMLElement | null): string {
+const getAncestorSelector = (element: HTMLElement | null): string => {
   const segments: string[] = []
   while (element && element.nodeType === Node.ELEMENT_NODE) {
     let segment = element.tagName.toLowerCase()
@@ -14,10 +14,10 @@ export function getAncestorSelector(element: HTMLElement | null): string {
   return segments.join(" > ")
 }
 
-export function collectCssRules(
+export const collectCssRules = (
   element: HTMLElement,
   cssRules: string[] = []
-): string[] {
+): string[] => {
   // Collect CSS rules from stylesheets
   for (const stylesheet of Array.from(document.styleSheets)) {
     try {
