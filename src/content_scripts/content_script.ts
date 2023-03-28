@@ -1,8 +1,5 @@
 import { collectCssRules } from "../css_parser/css_parser"
-import {
-  getAncestorHtml,
-  getAncestorSelector,
-} from "../html_parser/html_parser"
+import { getAncestorHtml } from "../html_parser/html_parser"
 import {
   HtmlCssInfoInterface,
   OverlayActivatorInterface,
@@ -74,22 +71,19 @@ function onClick(event: MouseEvent) {
   event.preventDefault()
   event.stopPropagation()
   const target = event.target as HTMLElement
-  const outerHTML = getAncestorHtml(target)
+  const cssClassMap: Map<string, string> = getAncestorHtml(target)
 
-  const cssRules = collectCssRules(target)
+  const cssRules = collectCssRules(target, cssClassMap)
 
   // Add computed width and height
   const computedStyle = window.getComputedStyle(target)
   const width = computedStyle.width
   const height = computedStyle.height
-  const selector = getAncestorSelector(target)
-  cssRules.push(
-    `/* Computed width and height */\n${selector} { width: ${width}; height: ${height}; }`
-  )
+
   if (contentScriptPort) {
     contentScriptPort.postMessage({
       message_type: MessageTypes.HTML_CSS_INFO_MESSAGE,
-      html: outerHTML,
+      html: target.outerHTML,
       css: cssRules.join(" "),
       tabId: window.__CURRENT_WINDOW_TAB_ID__,
     } as HtmlCssInfoInterface)

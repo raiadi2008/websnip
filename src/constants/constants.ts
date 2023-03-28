@@ -16,3 +16,5 @@ export const VOID_ELEMENTS = [
   "track",
   "wbr",
 ]
+export const pseudoClassRegex =
+  /:(?:after|before|first-letter|first-line|first-child|last-child|nth-child|nth-last-child|not|only-child|only-of-type|nth-of-type|last-of-type|root|target|hover|focus|active|visited|enabled|disabled|checked|default|valid|invalid|in-range|out-of-range|required|optional|read-only|read-write|fullscreen|fullscreen-ancestor|selection|placeholder|dir|lang|any|matches|has)/

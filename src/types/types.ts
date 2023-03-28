@@ -21,3 +21,8 @@ export interface RespondTabIdInfoInterface {
   message_type: MessageTypes
   tabId: number
 }
+
+export interface HtmlClassInfoInterface {
+  html: string
+  class_map: Map<string, string>
+}
