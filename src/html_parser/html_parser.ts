@@ -6,6 +6,7 @@ import { HtmlClassInfoInterface } from "../types/types"
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const classMap = new Map<string, string>()
 
 let classNumber = 0
@@ -31,6 +32,8 @@ export function getAncestorHtml(target: HTMLElement): string {
 =======
 =======
 >>>>>>> 9d7de45 (fixed changes)
+=======
+>>>>>>> 82cc6f7 (changes)
 export const getAncestorHtml = (target: HTMLElement): string => {
 >>>>>>> 49f9071 (changes)
 =======
@@ -85,6 +88,8 @@ const addNewClassNamesToHtml = (target: Element) => {
 
   return result
 =======
+=======
+>>>>>>> f4bd09a (changes)
 const classMap = new Map<string, string>()
 
 let classNumber = 0
@@ -114,6 +119,9 @@ export const getAncestorHtml = (target: HTMLElement): Map<string, string> => {
 >>>>>>> 1a48af3 (fixed changes)
 =======
 export function getAncestorHtml(target: HTMLElement): string {
+=======
+export const getAncestorHtml = (target: HTMLElement): string => {
+>>>>>>> 49f9071 (changes)
   const stack: HTMLElement[] = []
   let currentElement: HTMLElement | null = target
 

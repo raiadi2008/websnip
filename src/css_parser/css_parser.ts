@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { pseudoClassRegex } from "../constants/constants"
 export function getAncestorSelector(element: HTMLElement | null): string {
 =======
@@ -54,6 +55,8 @@ const getCssTextWithoutSelectors = (cssText: string) => {
 
 =======
 >>>>>>> 08f6d3e (added css parser)
+=======
+>>>>>>> 82cc6f7 (changes)
 const getAncestorSelector = (element: HTMLElement | null): string => {
   const segments: string[] = []
   while (element && element.nodeType === Node.ELEMENT_NODE) {
@@ -73,8 +76,13 @@ const getAncestorSelector = (element: HTMLElement | null): string => {
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> f4bd09a (changes)
 import { pseudoClassRegex } from "../constants/constants"
 export function getAncestorSelector(element: HTMLElement | null): string {
+=======
+const getAncestorSelector = (element: HTMLElement | null): string => {
+>>>>>>> 49f9071 (changes)
   const segments: string[] = []
   while (element && element.nodeType === Node.ELEMENT_NODE) {
     let segment = element.tagName.toLowerCase()
@@ -90,6 +98,7 @@ export function getAncestorSelector(element: HTMLElement | null): string {
   return segments.join(" > ")
 }
 
+<<<<<<< HEAD
 const getCssTextWithoutSelectors = (cssText: string) => {
   const openingBraceIndex = cssText.indexOf("{")
   const closingBraceIndex = cssText.lastIndexOf("}")
@@ -141,6 +150,7 @@ const isPseudoClass = (element: HTMLElement, selectorText: string): string => {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 49f9071 (changes)
 =======
@@ -150,6 +160,13 @@ const isPseudoClass = (element: HTMLElement, selectorText: string): string => {
 =======
 >>>>>>> 3becc24 (added css parser)
 >>>>>>> 08f6d3e (added css parser)
+=======
+>>>>>>> 3becc24 (added css parser)
+=======
+=======
+>>>>>>> 49f9071 (changes)
+>>>>>>> f4bd09a (changes)
+>>>>>>> 82cc6f7 (changes)
 export const collectCssRules = (
   element: HTMLElement,
   classMap: Map<string, string>,
