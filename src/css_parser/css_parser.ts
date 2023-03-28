@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { pseudoClassRegex } from "../constants/constants"
 export function getAncestorSelector(element: HTMLElement | null): string {
 =======
@@ -51,6 +52,8 @@ const getCssTextWithoutSelectors = (cssText: string) => {
   return cssProps
 }
 
+=======
+>>>>>>> 08f6d3e (added css parser)
 const getAncestorSelector = (element: HTMLElement | null): string => {
   const segments: string[] = []
   while (element && element.nodeType === Node.ELEMENT_NODE) {
@@ -67,6 +70,45 @@ const getAncestorSelector = (element: HTMLElement | null): string => {
   return segments.join(" > ")
 }
 
+<<<<<<< HEAD
+=======
+=======
+import { pseudoClassRegex } from "../constants/constants"
+
+const getCssTextWithoutSelectors = (cssText: string) => {
+  const openingBraceIndex = cssText.indexOf("{")
+  const closingBraceIndex = cssText.lastIndexOf("}")
+  let cssProps: string = null
+  if (
+    openingBraceIndex >= 0 &&
+    closingBraceIndex >= 0 &&
+    closingBraceIndex > openingBraceIndex
+  ) {
+    cssProps = cssText
+      .substring(openingBraceIndex, closingBraceIndex + 1)
+      .trim()
+  }
+
+  return cssProps
+}
+
+const getAncestorSelector = (element: HTMLElement | null): string => {
+  const segments: string[] = []
+  while (element && element.nodeType === Node.ELEMENT_NODE) {
+    let segment = element.tagName.toLowerCase()
+    if (element.id) {
+      segment += "#" + element.id
+    }
+    if (element.className) {
+      segment += "." + element.className.trim().replace(/\s+/g, ".")
+    }
+    segments.unshift(segment)
+    element = element.parentElement
+  }
+  return segments.join(" > ")
+}
+
+>>>>>>> 08f6d3e (added css parser)
 const isPseudoClass = (element: HTMLElement, selectorText: string): string => {
   const selectorsArray: string[] = selectorText.split(",")
   const pseudoSelectors = new Set<string>()
@@ -83,12 +125,16 @@ const isPseudoClass = (element: HTMLElement, selectorText: string): string => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 49f9071 (changes)
 =======
 >>>>>>> a303748 (added css parser)
 =======
 >>>>>>> 49f9071 (changes)
+=======
+>>>>>>> 3becc24 (added css parser)
+>>>>>>> 08f6d3e (added css parser)
 export const collectCssRules = (
   element: HTMLElement,
   classMap: Map<string, string>,
