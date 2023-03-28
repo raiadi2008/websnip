@@ -7,6 +7,7 @@ import { HtmlClassInfoInterface } from "../types/types"
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const classMap = new Map<string, string>()
 
 let classNumber = 0
@@ -34,6 +35,8 @@ export function getAncestorHtml(target: HTMLElement): string {
 >>>>>>> 9d7de45 (fixed changes)
 =======
 >>>>>>> 82cc6f7 (changes)
+=======
+>>>>>>> b9efab4 (fixed changes)
 export const getAncestorHtml = (target: HTMLElement): string => {
 >>>>>>> 49f9071 (changes)
 =======
@@ -90,6 +93,8 @@ const addNewClassNamesToHtml = (target: Element) => {
 =======
 =======
 >>>>>>> f4bd09a (changes)
+=======
+>>>>>>> 27e5fbc (fixed changes)
 const classMap = new Map<string, string>()
 
 let classNumber = 0
@@ -124,11 +129,21 @@ export const getAncestorHtml = (target: HTMLElement): string => {
 >>>>>>> 49f9071 (changes)
   const stack: HTMLElement[] = []
   let currentElement: HTMLElement | null = target
+=======
+const classMap = new Map<string, string>()
+>>>>>>> f58068a (fixed changes)
 
-  while (currentElement) {
-    stack.push(currentElement)
-    currentElement = currentElement.parentElement
+let classNumber = 0
+
+const addNewClassNamesToHtml = (target: Element) => {
+  classNumber += 1
+  const newClassName = `websnip-genrated-class-${classNumber}`
+  target.classList.add(newClassName)
+  classMap.set(target.className, newClassName)
+  for (const childElement of Array.from(target.children)) {
+    addNewClassNamesToHtml(childElement)
   }
+<<<<<<< HEAD
 
   let result = ""
   const closingTags: string[] = []
@@ -160,5 +175,17 @@ export const getAncestorHtml = (target: HTMLElement): string => {
 
   return result
 >>>>>>> fa9e85a (arrow function changes)
+<<<<<<< HEAD
 >>>>>>> 2661c3d (arrow function changes)
+=======
+=======
+}
+
+export const getAncestorHtml = (target: HTMLElement): Map<string, string> => {
+  classMap.clear()
+  classNumber = 0
+  addNewClassNamesToHtml(target)
+  return classMap
+>>>>>>> 27e5fbc (fixed changes)
+>>>>>>> b9efab4 (fixed changes)
 }
