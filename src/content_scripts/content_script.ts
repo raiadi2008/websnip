@@ -71,9 +71,12 @@ const onClick = (event: MouseEvent) => {
   event.preventDefault()
   event.stopPropagation()
   const target = event.target as HTMLElement
-  const outerHTML = getAncestorHtml(target)
+  const cssRules: string[] = []
+  const classMap = new Map<string, string[]>()
+  collectCssRules(target, cssRules, classMap)
 
-  const cssRules = collectCssRules(target)
+  console.log("classMap", classMap)
+  console.log("cssRules", cssRules)
 
   // Add computed width and height
   const computedStyle = window.getComputedStyle(target)
@@ -83,7 +86,7 @@ const onClick = (event: MouseEvent) => {
   if (contentScriptPort) {
     contentScriptPort.postMessage({
       message_type: MessageTypes.HTML_CSS_INFO_MESSAGE,
-      html: outerHTML,
+      html: target.outerHTML,
       css: cssRules.join(" "),
       tabId: window.__CURRENT_WINDOW_TAB_ID__,
     } as HtmlCssInfoInterface)
