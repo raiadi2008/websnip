@@ -21,3 +21,8 @@ export interface RespondTabIdInfoInterface {
   message_type: MessageTypes
   tabId: number
 }
+
+export interface CssRulesInterface {
+  css_rules: string[]
+  css_maps: Map<String, Array<string>>
+}
